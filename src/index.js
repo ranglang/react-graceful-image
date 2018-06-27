@@ -104,6 +104,15 @@ class GracefulImage extends Component {
     }
   };
 
+  lazyLoadIfHasPlaceHolder = () => {
+    if(this.placeholderImage) {
+        if (isInViewport(this.placeholderImage)) {
+            this.clearEventListeners();
+            this.loadImage();
+        }
+    }
+  };
+
   /*
     Attempts to load an image src passed via props
     and utilises image events to track sccess / failure of the loading
@@ -112,7 +121,7 @@ class GracefulImage extends Component {
     this.addAnimationStyles();
 
     if (!this.props.noLazyLoad && IS_SVG_SUPPORTED) {
-      this.lazyLoad();
+      this.lazyLoadIfHasPlaceHolder();
       registerListener("load", this.throttledFunction);
       registerListener("scroll", this.throttledFunction);
       registerListener("resize", this.throttledFunction);
