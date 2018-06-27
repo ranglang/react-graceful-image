@@ -112,6 +112,7 @@ class GracefulImage extends Component {
     this.addAnimationStyles();
 
     if (!this.props.noLazyLoad && IS_SVG_SUPPORTED) {
+      this.lazyLoad();
       registerListener("load", this.throttledFunction);
       registerListener("scroll", this.throttledFunction);
       registerListener("resize", this.throttledFunction);
